@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 
-const Practice = () => {
+const Practice = ({ children }) => {
   const [practice, setPractice] = useState(0);
 
   //useEffect Hook running depending on the practice useState hook
@@ -11,8 +11,9 @@ const Practice = () => {
 
   return ( 
     <>
-    <h5> Practice Component </h5>
-     <p> {practice} </p>
+      {/* A fragment can be written in shorthand as seen in this component */}
+      {children}
+      <p> {practice} </p>
       <button onClick={() => setPractice(practice - 1)}> Subtract </button>
       <button onClick={() => setPractice(practice + 1)}> Add </button>
     </>

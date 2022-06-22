@@ -3,12 +3,15 @@ import './App.css';
 import List from './components/List';
 import Practice from './components/Practice';
 import Search from './components/Search';
+import DynamicList from './components/DynamicList';
 import useLocalStorage from './customHooks/useLocalStorage';
+import Title from './components/Title';
 
 
 const list = [
   {
     title: 'React',
+    type: 'framework',
     url: 'https://reactjs.org/',
     author: 'Jordan Walke',
     num_comments: 3,
@@ -18,6 +21,7 @@ const list = [
   },
   {
     title: 'Redux',
+    type: 'library',
     url: 'https://redux.js.org/',
     author: 'Dan Abramov, Andrew Clark',
     num_comments: 2,
@@ -27,6 +31,7 @@ const list = [
   },
   {
     title: 'Python',
+    type: 'language',
     url: 'https://python.org/',
     author: 'Guido Van Rossum',
     num_comments: 2,
@@ -36,6 +41,7 @@ const list = [
   },
   {
     title: 'Svelte',
+    type: 'framework',
     url: 'https://svelte.dev/',
     author: 'Rich Harris',
     num_comments: 4,
@@ -45,6 +51,7 @@ const list = [
   },
   {
     title: 'Tailwind',
+    type: 'Framework',
     url: 'https://tailwindcss.com/',
     author: 'Daniel Maloney',
     num_comments: 7,
@@ -54,6 +61,7 @@ const list = [
   },
   {
     title: 'Vue',
+    type: 'framework',
     url: 'https://vuejs.org/',
     author: 'Evan You',
     num_comments: 6,
@@ -71,7 +79,7 @@ function App() {
   //Creating useState Hooks
   const [counter, setCounter] = useState(0);
   //Getting search keyword from localStorage
-  const [callBack, setCallBack] = useLocalStorage('search', 'React');
+  const [callBack, setCallBack] = useLocalStorage('keyword', 'React');
 
   //Rendering new numbers to new array
   const newNumbers = numbers.map((number) => {
@@ -81,16 +89,13 @@ function App() {
   //Creating CallBack handlers
   const onSearch = (event) => {
     setCallBack(event.target.value);
-
-    //Saving search keyword to localStorage
-    localStorage.setItem('search', event.target.value);
   }
   
   console.log(newNumbers);
 
   return (
     <Fragment>
-      <Practice />
+      {/* This is another way in which the fragment can be used */}
       <p> {counter} </p>
       <button onClick={() => setCounter(counter - 1)}> Subtract </button>
       <button onClick={() => setCounter(counter + 1)}> Add </button>
@@ -98,13 +103,30 @@ function App() {
       {/* Callback Handler value displayed in browser */}
       <h1> {callBack} </h1>
       <h1> Lists in React </h1>
-      {/*Components*/}
+      {/* Components - Opening and Closing Tag */}
       <Search search={callBack} onSearch={onSearch}></Search>
+
+      {/*Components - Self-closing tag*/}
       <List title={`Search keyword: ${callBack}`} list={list.filter(search => search.title.toLowerCase().includes(callBack.toLowerCase()))} />
-      {/*<List list={list} title={'First List - All'} />
-      <List title={'Third List - Active'} list={list.filter(framework => framework.status === 'inactive')} />*/}
+
+      {/* Reusing the List component */}
+      <List title={'Frameworks Only'} list={list.filter(framework => framework.type === 'framework')} name={list.title} />
+      <List title={'Third List - Active'} list={list.filter(framework => framework.status === 'inactive')} />
+
+      {/* Creating a more dynamic component */}
+      {/* Making React components behave like vanilla HTML */}
+      <DynamicList name={'num_comments'} list={list}> Number of Comments </DynamicList>
+      <DynamicList name={'title'} list={list}> Name of Items </DynamicList>
+
+      {/* Passing components as children into other components */}
+      <Practice>
+        <Title />
+        <Title />
+        <Title />
+        <Title />
+        <Title />
+      </Practice>
     </Fragment>
-  
   );
 }
 

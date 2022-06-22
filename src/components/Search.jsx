@@ -14,7 +14,13 @@ const Search = ( props ) => {
   return (
     <Fragment>
       <label htmlFor="search">Search: </label><br/>
-      <input id="search" type="text" value={props.search} onChange={changeInput} />
+      <input 
+        id="search" 
+        type="text" 
+        autoFocus
+        value={props.search} 
+        onChange={changeInput} 
+      />
 
       <button value={'Click Me'} onClick={(event) => console.log(event)}> Click Me </button>
       <p> {inputValue} </p>
