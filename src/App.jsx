@@ -1,131 +1,118 @@
+import { useEffect } from 'react';
 import { Fragment, useState } from 'react';
 import './App.css';
 import List from './components/List';
-import Practice from './components/Practice';
 import Search from './components/Search';
-import DynamicList from './components/DynamicList';
+import InputForm from './components/InputForm';
 import useLocalStorage from './customHooks/useLocalStorage';
-import Title from './components/Title';
-
-
-const list = [
-  {
-    title: 'React',
-    type: 'framework',
-    url: 'https://reactjs.org/',
-    author: 'Jordan Walke',
-    num_comments: 3,
-    points: 4,
-    status: 'active',
-    objectID: 0,
-  },
-  {
-    title: 'Redux',
-    type: 'library',
-    url: 'https://redux.js.org/',
-    author: 'Dan Abramov, Andrew Clark',
-    num_comments: 2,
-    points: 5,
-    status: 'active',
-    objectID: 1,
-  },
-  {
-    title: 'Python',
-    type: 'language',
-    url: 'https://python.org/',
-    author: 'Guido Van Rossum',
-    num_comments: 2,
-    points: 5,
-    status: 'inactive',
-    objectID: 2,
-  },
-  {
-    title: 'Svelte',
-    type: 'framework',
-    url: 'https://svelte.dev/',
-    author: 'Rich Harris',
-    num_comments: 4,
-    points: 7,
-    status: 'active',
-    objectID: 3,
-  },
-  {
-    title: 'Tailwind',
-    type: 'Framework',
-    url: 'https://tailwindcss.com/',
-    author: 'Daniel Maloney',
-    num_comments: 7,
-    points: 9,
-    status: 'inactive',
-    objectID: 4,
-  },
-  {
-    title: 'Vue',
-    type: 'framework',
-    url: 'https://vuejs.org/',
-    author: 'Evan You',
-    num_comments: 6,
-    points: 10,
-    status: 'inactive',
-    objectID: 5,
-  },
-];
-
 
 
 function App() {
-  const numbers = [1, 2, 3, 4, 5];
-  
-  //Creating useState Hooks
-  const [counter, setCounter] = useState(0);
   //Getting search keyword from localStorage
-  const [callBack, setCallBack] = useLocalStorage('keyword', 'React');
+  const [callBack, setCallBack] = useLocalStorage('keyword');
+  const [stories, setStories] = useState([]);
 
-  //Rendering new numbers to new array
-  const newNumbers = numbers.map((number) => {
-    return number * 2;
-  })
+  //Creating stateful variables for controlled inputs
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [numComments, setNumComments] = useState(0);
+  const [points, setPoints] = useState(0);
+  const [url, setUrl] = useState('');
+  const [status, setStatus] = useState('');
+  const [type, SetType] = useState('');
+  const [change, setChange] = useState(100);
+
+
+  function getData() {
+    fetch('http://localhost:8000/list')
+    .then(data => data.json())
+    .then(response => {
+      console.log(response);
+      setStories(response);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+ 
+  useEffect(() => {
+    getData()
+  }, [change]);
+
+
+  //Adding items to the database
+  const addData = () => {
+    fetch('http://localhost:8000/list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+        "title": title,
+        "author": author,
+        "num_comments": numComments,
+        "points": points,
+        "status": status,
+        "type": type,
+        "url": url
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data)
+      setChange(change + 1)
+    })
+    .catch(err => console.log(err))
+  }
+
+  //Deleting items from the database
+  const deleteData = (item) => {
+    fetch(`http://localhost:8000/list/${item.id}`, {
+      method: 'DELETE'
+    })
+    .then(
+      console.log("Object deleted")
+    )
+  }
+  
 
   //Creating CallBack handlers
   const onSearch = (event) => {
     setCallBack(event.target.value);
   }
-  
-  console.log(newNumbers);
+
 
   return (
     <Fragment>
-      {/* This is another way in which the fragment can be used */}
-      <p> {counter} </p>
-      <button onClick={() => setCounter(counter - 1)}> Subtract </button>
-      <button onClick={() => setCounter(counter + 1)}> Add </button>
-      
-      {/* Callback Handler value displayed in browser */}
-      <h1> {callBack} </h1>
+      <InputForm
+        title={title}
+        setTitle={setTitle}
+        author={author}
+        setAuthor={setAuthor}
+        numComments={numComments}
+        setNumComments={setNumComments}
+        points={points}
+        setPoints={setPoints}
+        url={url}
+        setUrl={setUrl}
+        status={status}
+        setStatus={setStatus}
+        type={type}
+        setType={SetType}
+        addData={addData}
+      />
       <h1> Lists in React </h1>
       {/* Components - Opening and Closing Tag */}
       <Search search={callBack} onSearch={onSearch}></Search>
 
       {/*Components - Self-closing tag*/}
-      <List title={`Search keyword: ${callBack}`} list={list.filter(search => search.title.toLowerCase().includes(callBack.toLowerCase()))} />
+      <List 
+        deleteData={deleteData}
+        title={`Search keyword: ${callBack}`} 
+        list={stories.filter(search => search.title.toLowerCase().includes(callBack.toLowerCase()))} />
 
-      {/* Reusing the List component */}
-      <List title={'Frameworks Only'} list={list.filter(framework => framework.type === 'framework')} name={list.title} />
-      <List title={'Third List - Active'} list={list.filter(framework => framework.status === 'inactive')} />
-
-      {/* Creating a more dynamic component */}
-      {/* Making React components behave like vanilla HTML */}
-      <DynamicList name={'num_comments'} list={list}> Number of Comments </DynamicList>
-      <DynamicList name={'title'} list={list}> Name of Items </DynamicList>
-
-      {/* Passing components as children into other components */}
-      <Practice>
-        <Title />
-        <Title />
-        <Title />
-        <Title />
-        <Title />
-      </Practice>
+  
     </Fragment>
   );
 }

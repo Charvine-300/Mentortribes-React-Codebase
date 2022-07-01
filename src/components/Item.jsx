@@ -1,19 +1,23 @@
 
 
-const Item = ({ title, url, author, num_comments }) => {
+const Item = ({ item, deleteData }) => {
+  
+
   return ( 
     <>
-      <li> {title} 
+      <li> {item.title} 
         <span>
-          <a href={url} target="_blank" rel="noreferrer"> {title} </a>
+          <a href={item.url} target="_blank" rel="noreferrer"> {item.title} </a>
         </span>
         <span>
-          <h3> {author} </h3>
+          <h3> {item.author} </h3>
         </span>
         <span>
-          <p> No. of comments: {num_comments} </p>
+          <p> No. of comments: {item.num_comments} </p>
         </span>
       </li>
+      {/*Creating a button to trigger the removal of the attached item */}
+      <button onClick={() => deleteData(item)}> Remove Item </button>
     </>
   );
 }

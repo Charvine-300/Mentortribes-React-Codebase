@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-const useLocalStorage = (key, initialState) => {
+const useLocalStorage = (key) => {
   //useState hook which contains the input value
-  const [searchTerm, setSearchTerm] = useState(localStorage.getItem(key) || initialState);
+  const [searchTerm, setSearchTerm] = useState(localStorage.getItem(key));
 
   
   //The value of the key is changed to searchTerm to update it in the localStorage

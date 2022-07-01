@@ -1,12 +1,7 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 const Search = ( props ) => {
-  const [inputValue, setInputValue] = useState(props.callBack);
-
   const changeInput = (event) => {
-    console.log(event);
-    setInputValue(event.target.value);
-
     //Calling onSearch function
     props.onSearch(event);
   }
@@ -18,12 +13,11 @@ const Search = ( props ) => {
         id="search" 
         type="text" 
         autoFocus
-        value={props.search} 
+        value={props.search}
         onChange={changeInput} 
       />
 
-      <button value={'Click Me'} onClick={(event) => console.log(event)}> Click Me </button>
-      <p> {inputValue} </p>
+      <button value={'Click Me'}> Click Me </button>
     </Fragment>
   )
 };

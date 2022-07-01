@@ -2,7 +2,7 @@ import '../App.css';
 import Item from "./Item";
 
 
-const List = ({ title, list }) => {
+const List = ({ deleteData, title, list }) => {
 
   return ( 
     <div className='wrapper'>
@@ -13,8 +13,9 @@ const List = ({ title, list }) => {
         {list.map((item) => {
           return (
             <Item 
-              key={item.objectID}
-              {...item}
+              key={item.id}
+              item={item}
+              deleteData={deleteData}
             />
           )
         })}
