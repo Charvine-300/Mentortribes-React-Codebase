@@ -1,13 +1,16 @@
-import { useEffect } from 'react';
-import { Fragment, useState } from 'react';
 import './App.css';
-import List from './components/List';
-import Search from './components/Search';
+import { useEffect } from 'react';
+import Error404 from './images/404.png';
+import { Fragment, useState } from 'react';
 import InputForm from './components/InputForm';
 import useLocalStorage from './customHooks/useLocalStorage';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Homepage from './components/Homepage';
 
 
 function App() {
+
+  const [cartisEmpty] = useState(false);
   //Getting search keyword from localStorage
   const [callBack, setCallBack] = useLocalStorage('keyword');
   const [stories, setStories] = useState([]);
@@ -41,30 +44,7 @@ function App() {
 
 
   //Adding items to the database
-  const addData = () => {
-    fetch('http://localhost:8000/list', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        "title": title,
-        "author": author,
-        "num_comments": numComments,
-        "points": points,
-        "status": status,
-        "type": type,
-        "url": url
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data)
-      setChange(change + 1)
-    })
-    .catch(err => console.log(err))
-  }
+  
 
   //Deleting items from the database
   const deleteData = (item) => {
@@ -85,34 +65,52 @@ function App() {
 
   return (
     <Fragment>
-      <InputForm
-        title={title}
-        setTitle={setTitle}
-        author={author}
-        setAuthor={setAuthor}
-        numComments={numComments}
-        setNumComments={setNumComments}
-        points={points}
-        setPoints={setPoints}
-        url={url}
-        setUrl={setUrl}
-        status={status}
-        setStatus={setStatus}
-        type={type}
-        setType={SetType}
-        addData={addData}
-      />
-      <h1> Lists in React </h1>
-      {/* Components - Opening and Closing Tag */}
-      <Search search={callBack} onSearch={onSearch}></Search>
+      <Router>
+        <Routes>
+          <Route path='/' element={
+            <Homepage
+              search={callBack} 
+              onSearch={onSearch}
+              deleteData={deleteData}
+              list={stories.filter(search => search.title.toLowerCase().includes(callBack.toLowerCase()))}
+            />} 
+          />
+          <Route path='/input' element={  
+            <InputForm
+              change={change}
+              setChange={setChange}
+              title={title}
+              setTitle={setTitle}
+              author={author}
+              setAuthor={setAuthor}
+              numComments={numComments}
+              setNumComments={setNumComments}
+              points={points}
+              setPoints={setPoints}
+              url={url}
+              setUrl={setUrl}
+              status={status}
+              setStatus={setStatus}
+              type={type}
+              setType={SetType}
+            />}
+          />
+          <Route path='/happy' element={(
+            <div>
+             <p> Happy Birthday Thomas! </p>
+            </div>
+          )}/>
+          {/* Conditional rendering */}
+          <Route path='/redirect' element={cartisEmpty ? <Navigate to='/' /> : <p> Cart is Full </p>} />
 
-      {/*Components - Self-closing tag*/}
-      <List 
-        deleteData={deleteData}
-        title={`Search keyword: ${callBack}`} 
-        list={stories.filter(search => search.title.toLowerCase().includes(callBack.toLowerCase()))} />
-
-  
+          {/* 404 Error Route. Should always remain at last part */}
+          <Route path='*' element={(
+            <div className='error-page'>
+              <img src={Error404} alt="Page Not Found" />
+            </div>
+          )}/>
+        </Routes>
+      </Router> 
     </Fragment>
   );
 }

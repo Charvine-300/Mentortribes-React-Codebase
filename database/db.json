@@ -69,6 +69,46 @@
       "type": "framework",
       "url": "https://expressjs.com",
       "id": 7
+    },
+    {
+      "title": "Rust ",
+      "author": "Graydon Hoare",
+      "num_comments": 55,
+      "points": 42,
+      "status": "inactive",
+      "type": "language",
+      "url": "https://www.rust-lang.org",
+      "id": 8
+    },
+    {
+      "title": "Ruby",
+      "author": "Yukihiro Matsumoto",
+      "num_comments": 99,
+      "points": 34,
+      "status": "inactive",
+      "type": "language",
+      "url": "https://www.ruby-lang.org",
+      "id": 9
+    },
+    {
+      "title": "Swift",
+      "author": "Chris Lattner, Doug Gregor, John McCall, Ted Kremenek, Joe Groff, and Apple Inc.",
+      "num_comments": 44,
+      "points": 38,
+      "status": "active",
+      "type": "language",
+      "url": "https://developer.apple.com",
+      "id": 10
+    },
+    {
+      "title": "Java",
+      "author": "James Gosling",
+      "num_comments": 39,
+      "points": 47,
+      "status": "inactive",
+      "type": "language",
+      "url": "https://www.java.com",
+      "id": 11
     }
   ]
 }

@@ -1,4 +1,6 @@
 import { Fragment } from "react";
+import { Link } from 'react-router-dom';
+
 
 const Search = ( props ) => {
   const changeInput = (event) => {
@@ -18,6 +20,11 @@ const Search = ( props ) => {
       />
 
       <button value={'Click Me'}> Click Me </button>
+
+      {/* Link to the Form page */}
+      <Link to='/input'>
+        <h4> Add New Item </h4>
+      </Link>
     </Fragment>
   )
 };

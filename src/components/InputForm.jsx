@@ -1,6 +1,43 @@
+import { useNavigate } from 'react-router-dom';
+
 
 const Practice = ( props ) => {
+  //Navigation Feature 
+  const home  = useNavigate();
  
+
+ //Adding items to the database
+  const addData = (e) => {
+    e.preventDefault();
+
+    fetch('http://localhost:8000/list', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({
+      "title": props.title,
+      "author": props.author,
+      "num_comments": Number(props.numComments),
+      "points": Number(props.points),
+      "status": props.status,
+      "type": props.type,
+      "url": props.url
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+    console.log(data)
+    props.setChange(props.change + 1)
+    })
+    .catch(err => console.log(err))
+  
+    //Return to homepage
+    home('/');
+  }
+
+
   return ( 
     <>
       <form>
@@ -75,10 +112,11 @@ const Practice = ( props ) => {
           >
             <option value="framework"> Framework </option>
             <option value="library"> Library </option>
+            <option value="language"> Language </option>
           </select>
           <br />
           <br />
-          <button onClick={props.addData}> Add New Data </button>
+          <button onClick={(e) => {addData(e)}}> Add New Data </button>
         </fieldset>
       </form>
     </>
