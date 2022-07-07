@@ -11,16 +11,6 @@
       "status": "active"
     },
     {
-      "id": 2,
-      "title": "Python",
-      "type": "language",
-      "url": "https://python.org/",
-      "author": "Guido Van Rossum",
-      "num_comments": 2,
-      "points": 5,
-      "status": "inactive"
-    },
-    {
       "id": 3,
       "title": "Svelte",
       "type": "framework",
@@ -38,16 +28,6 @@
       "author": "Daniel Maloney",
       "num_comments": 7,
       "points": 9,
-      "status": "inactive"
-    },
-    {
-      "id": 5,
-      "title": "Vue",
-      "type": "framework",
-      "url": "https://vuejs.org/",
-      "author": "Evan You",
-      "num_comments": 6,
-      "points": 10,
       "status": "inactive"
     },
     {
@@ -69,16 +49,6 @@
       "type": "framework",
       "url": "https://expressjs.com",
       "id": 7
-    },
-    {
-      "title": "Rust ",
-      "author": "Graydon Hoare",
-      "num_comments": 55,
-      "points": 42,
-      "status": "inactive",
-      "type": "language",
-      "url": "https://www.rust-lang.org",
-      "id": 8
     },
     {
       "title": "Ruby",

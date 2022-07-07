@@ -25,6 +25,21 @@ const Search = ( props ) => {
       <Link to='/input'>
         <h4> Add New Item </h4>
       </Link>
+
+      <div className="nested-routes">
+        <Link to='/'>
+          <h4> All Items </h4>
+        </Link>
+        <Link to='/frameworks'>
+          <h4> Frameworks </h4>
+        </Link>
+        <Link to='/libraries'>
+          <h4> Libraries </h4>
+        </Link>
+        <Link to='/languages'>
+          <h4> Languages </h4>
+        </Link>
+      </div>
     </Fragment>
   )
 };

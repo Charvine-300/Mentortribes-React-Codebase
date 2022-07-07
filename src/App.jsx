@@ -6,6 +6,7 @@ import InputForm from './components/InputForm';
 import useLocalStorage from './customHooks/useLocalStorage';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Homepage from './components/Homepage';
+import Details from './components/Details';
 
 
 function App() {
@@ -51,9 +52,10 @@ function App() {
     fetch(`http://localhost:8000/list/${item.id}`, {
       method: 'DELETE'
     })
-    .then(
+    .then(() => {
       console.log("Object deleted")
-    )
+      setChange(change -1);
+    })
   }
   
 
@@ -62,17 +64,18 @@ function App() {
     setCallBack(event.target.value);
   }
 
+  /*list={stories.filter(search => search.title.toLowerCase().includes(callBack.toLowerCase()))}*/
 
   return (
     <Fragment>
       <Router>
         <Routes>
-          <Route path='/' element={
+          <Route path='/*' element={
             <Homepage
               search={callBack} 
               onSearch={onSearch}
               deleteData={deleteData}
-              list={stories.filter(search => search.title.toLowerCase().includes(callBack.toLowerCase()))}
+              list={stories}
             />} 
           />
           <Route path='/input' element={  
@@ -95,6 +98,7 @@ function App() {
               setType={SetType}
             />}
           />
+          <Route path='/items/:id' element={<Details />}/>
           <Route path='/happy' element={(
             <div>
              <p> Happy Birthday Thomas! </p>
