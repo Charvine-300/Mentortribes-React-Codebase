@@ -18,9 +18,9 @@ const Item = ({ item, deleteData }) => {
       </li>
       {/*Creating a button to trigger the removal of the attached item */}
       <button onClick={() => deleteData(item)}> Remove Item </button>
-      <Link to={`/items/${item.id}`}>
-        <button> See More </button>
-      </Link>
+      <button>
+        <Link to={`/items/${item.id}`}> Read More </Link>
+      </button>
     </>
   );
 }

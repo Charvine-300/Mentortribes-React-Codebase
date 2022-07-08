@@ -98,7 +98,14 @@ function App() {
               setType={SetType}
             />}
           />
-          <Route path='/items/:id' element={<Details />}/>
+          {/* Route Parameter */}
+          <Route 
+            path='/items/:itemID' 
+            element={
+              <Details 
+                item={stories}
+            />} 
+          />
           <Route path='/happy' element={(
             <div>
              <p> Happy Birthday Thomas! </p>

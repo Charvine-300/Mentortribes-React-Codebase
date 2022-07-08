@@ -1,21 +1,27 @@
-import { useParams } from "react-router-dom"; 
+import { useParams } from 'react-router-dom';
 
-const Details = () => {
-  const { id } = useParams();
+const Details = ({ item }) => {
+  const headerStyle = {
+    color: "brown",
+    fontSize: "30px",
+  };
 
-  //Fetches data for indivudual item
-  const itemData = () => {
-    fetch(`http://localhost:8000/list/${id}`)
-    .then(response => response.json())
-    .then(data => console.log(data))
-  }
 
-  
-    itemData();
+  const { itemID } = useParams(); 
+
+  const itemDetails = item.filter(item => item.id === Number(itemID));
+  console.log(itemDetails);
 
   return ( 
     <>
-      <h2> Item Details - {id} </h2>
+      <h1 style={headerStyle}> Item Details - {itemID} </h1>
+      <ul>
+        <li> Author - {itemDetails[0].author} </li>
+        <li> Status - {itemDetails[0].status} </li>
+        <li> No. of Comments - {itemDetails[0].num_comments} </li>
+        <li> Type - {itemDetails[0].type} </li>
+
+      </ul>
     </>
   );
 }
