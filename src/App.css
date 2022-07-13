@@ -1,5 +1,17 @@
+.new-item {
+  display: block;
+  color: brown;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+}
+
 .wrapper {
   background-color: #61dafb;
+}
+
+.borders {
+  border: 3px solid #000;
+  background-color: orange;
 }
 
 .nested-routes {

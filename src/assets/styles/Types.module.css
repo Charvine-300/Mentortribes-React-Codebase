@@ -1,0 +1,9 @@
+.frames {
+    background-color: pink;
+    border: 5px double black;
+}
+
+.textcolor {
+    color: blueviolet;
+    font-family: monospace;
+}

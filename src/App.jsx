@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect } from 'react';
-import Error404 from './images/404.png';
+import Error404 from './assets/images/404.png';
 import { Fragment, useState } from 'react';
 import InputForm from './components/InputForm';
 import useLocalStorage from './customHooks/useLocalStorage';

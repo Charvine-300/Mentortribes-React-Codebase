@@ -22,8 +22,8 @@ const Search = ( props ) => {
       <button value={'Click Me'}> Click Me </button>
 
       {/* Link to the Form page */}
-      <Link to='/input'>
-        <h4> Add New Item </h4>
+      <Link to='/input' className="new-item">
+        Add New Item
       </Link>
 
       <div className="nested-routes">
