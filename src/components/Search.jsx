@@ -1,5 +1,21 @@
 import { Fragment } from "react";
+import styled from "styled-components";
 import { Link } from 'react-router-dom';
+import { ReactComponent as File } from '../assets/images/file-add.svg'
+
+
+const InputLink = styled.button`
+  border: none;
+  background-color: transparent;
+  
+  svg {
+    width: 30px;
+    height: 30px;
+    color: #61dafb;
+  }
+
+`;
+
 
 
 const Search = ( props ) => {
@@ -19,11 +35,11 @@ const Search = ( props ) => {
         onChange={changeInput} 
       />
 
-      <button value={'Click Me'}> Click Me </button>
-
       {/* Link to the Form page */}
-      <Link to='/input' className="new-item">
-        Add New Item
+      <Link to='/input'>
+        <InputLink>
+          <File /> 
+        </InputLink>
       </Link>
 
       <div className="nested-routes">

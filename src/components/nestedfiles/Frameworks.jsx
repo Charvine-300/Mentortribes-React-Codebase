@@ -1,9 +1,10 @@
 import Item from '../Item';
-import styles from '../.././assets/styles/Types.module.css';
+import { LanguageBox } from '../../assets/styles/styles';
+
 
 const Frameworks = ({ frameworkList, deleteData }) => {
   return (  
-    <div className={`${styles.frames} ${styles.textcolor}`}>
+    <LanguageBox>
       <h2> Frameworks: </h2>
       <ul>
         {frameworkList.map((item) => {
@@ -16,7 +17,7 @@ const Frameworks = ({ frameworkList, deleteData }) => {
           )
         })}
       </ul>
-    </div>
+    </LanguageBox>
   );
 }
  

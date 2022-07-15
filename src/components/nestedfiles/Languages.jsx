@@ -1,34 +1,13 @@
 import Item from '../Item';
-import styled from 'styled-components';
+import { LanguageBox, Heading } from '../../assets/styles/styles';
 
-const LanguageBox = styled.div`
-  border: 10px solid orange;
-  color: purple;
-  backgorund-color: lightblue;
-  font-family: 'Arial';
 
-  @media screen and (min-width: 1024px) {
-    color: black;
-    background-color: pink;
-  }
-`;
-
-const Heading = styled.h2`
-  color: green;
-  text-align: center;
-  font-size: 50px;
-`;
-
-const NewHeading = styled(Heading)`
-  color: red;
-  text-transform: uppercase;
-`;
 
 
 const Languages = ({ languagesList, deleteData }) => {
   return ( 
     <LanguageBox>
-      <NewHeading> Languages: </NewHeading>
+      <Heading color='green' transform='capitalize' size='80px'> Languages: </Heading>
       <ul>
         {languagesList.map((item) => {
           return (
